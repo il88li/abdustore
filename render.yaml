@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: hipe-store
+    runtime: docker
+    plan: 0.5c-512mb
+    region: frankfurt
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "5000"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hipe-store-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "false"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: Admen
+      - key: ADMIN_PASSWORD
+        value: "AZzB-NKNge%kqG-#-8f7Ff"
+      - key: ADMIN_EMAIL
+        value: ""
+      - key: UPLOAD_DIR
+        value: /var/data/uploads
+    disk:
+      name: hipe-store-uploads
+      mountPath: /var/data/uploads
+      sizeGB: 1
+
+databases:
+  - name: hipe-store-db
+    plan: 0.1c-256mb
+    region: frankfurt
+    databaseName: hipe_store
+    user: hipe_store_user

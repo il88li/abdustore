@@ -1,0 +1,10 @@
+.git
+.gitignore
+**/node_modules
+**/.env
+.env
+client/dist
+server/public
+server/uploads/*
+!server/uploads/.gitkeep
+README.md
